@@ -1,0 +1,28 @@
+Start testing: May 16 15:55 IST
+----------------------------------------------------------
+1/1 Testing: ExampleProject_tst
+1/1 Test: ExampleProject_tst
+Command: "/var/lib/jenkins/workspace/unittest/build/tst/ExampleProject_tst"
+Directory: /var/lib/jenkins/workspace/unittest/build/tst
+"ExampleProject_tst" start time: May 16 15:55 IST
+Output:
+----------------------------------------------------------
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from blaTest
+[ RUN      ] blaTest.test1
+[       OK ] blaTest.test1 (0 ms)
+[----------] 1 test from blaTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ExampleProject_tst" end time: May 16 15:55 IST
+"ExampleProject_tst" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 16 15:55 IST
