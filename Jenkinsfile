@@ -10,7 +10,7 @@ stages{
                     sh 'cd /var/lib/jenkins/workspace/*'
                 }
             }
-        stage('Clone')
+        stage('Cloning')
             {
                 steps
                 {  
@@ -24,7 +24,7 @@ stages{
                 }
             }
 
-        stage('Build code and generate artifact')
+        stage('Build code')
 
             {
                 steps
@@ -35,14 +35,14 @@ stages{
                     echo "Build ended"
                 }
                      post{
-        always{
-            mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
-            subject: "Build Success",
-            body: "${BUILD_NUMBER}_Passed!"
-            }
-    }
+                             always{
+                             mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
+                             subject: "Build Success",
+                             body: "${BUILD_NUMBER}_Passed!"
+                             }
+                         }
 
-                }
+            }
                  
 
         stage('Unit test')
@@ -59,10 +59,12 @@ stages{
             {
                 steps
                 {
+                    //building tar directory 
                     sh 'cd /var/lib/jenkins/workspace/unittest/ && tar -czvf /var/lib/jenkins/workspace/unittest/build.tar.gz /var/lib/jenkins/workspace/unittest/build/'
-                   // echo "tar directory generated"
+                    echo "tar directory generated"
                 }
             }    
+
         stage('Upload Artifacts to Nexus repo')
             {
                 steps
@@ -70,32 +72,30 @@ stages{
                     nexusArtifactUploader artifacts: [[artifactId: '${BUILD_NUMBER}', classifier: 'build.tar.gz', file: '/var/lib/jenkins/workspace/unittest/build.tar.gz', type: 'tar']], credentialsId: 'nexus', groupId: 'cmake-repo', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'unit-test', version: '1'
                 }
                 post{
-        always{
-            mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
-            subject: "Artifacts Uploaded",
-            body: "${BUILD_NUMBER}_Passed! Uploaded Artifacts to Nexus repo successfully"
-            }
-    }
+                         always{
+                         mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
+                         subject: "Artifacts Uploaded",
+                         body: "${BUILD_NUMBER}_Passed! Uploaded Artifacts to Nexus repo successfully"
+                         }
+                   }
             
-        }
+            }
 
         stage('Doxygen')
             {
                 steps
                 {
-                    //sh 'cd /var/lib/jenkins/workspace/unittest/docs/ && doxygen -g'
-                   // sh 'cd /var/lib/jenkins/workspace/unittest/docs/ && rm -rf Doxyfile'
-                    //sh 'chmod -R 777 /var/lib/jenkins/workspace/unittest/*'
                     sh 'cd /var/lib/jenkins/workspace/unittest/build/ && make docs'
-                    sh 'chmod -R 777 /var/lib/jenkins/workspace/unittest/*'                 
+                    sh 'chmod -R 777 /var/lib/jenkins/workspace/unittest/*'        
+                    echo "index.html created"         
                 }
             }
       }
                 post{
-                    failure{
-                                 mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
-                                 subject: "Failure",
-                                 body: "${BUILD_NUMBER}_FAIL!"
+                        failure{
+                        mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
+                        subject: "Failure",
+                        body: "${BUILD_NUMBER}_FAIL!"
                             }
-                }
+                    }
     }
