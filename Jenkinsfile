@@ -31,7 +31,7 @@ stages{
                 {   
                     // Run the build command for your C/C++ project
                     echo "Build started"
-                    sh 'cd /var/lib/jenkins/workspace/unittest/build/ && cmake .. && make'
+                    sh 'cd /var/lib/jenkins/workspace/unittest/build/ && sudo cmake .. && sudo make'
                     echo "Build ended"
                      post{
         always{
@@ -50,7 +50,7 @@ stages{
                 steps
                 {
                     // Run unit tests for your project
-                    sh 'cd /var/lib/jenkins/workspace/unittest/build/ && make test'
+                    sh 'cd /var/lib/jenkins/workspace/unittest/build/ && sudo make test'
                 }
                 
             }
@@ -59,7 +59,7 @@ stages{
             {
                 steps
                 {
-                    sh 'cd /var/lib/jenkins/workspace/unittest/ && tar -czvf /var/lib/jenkins/workspace/unittest/build.tar.gz /var/lib/jenkins/workspace/unittest/build/'
+                    sh 'cd /var/lib/jenkins/workspace/unittest/ && sudo tar -czvf /var/lib/jenkins/workspace/unittest/build.tar.gz /var/lib/jenkins/workspace/unittest/build/'
                    // echo "tar directory generated"
                 }
             }    
@@ -85,7 +85,7 @@ stages{
                 {
                     //sh 'cd /var/lib/jenkins/workspace/unittest/docs/ && doxygen -g'
                    // sh 'cd /var/lib/jenkins/workspace/unittest/docs/ && rm -rf Doxyfile'
-                    sh 'cd /var/lib/jenkins/workspace/unittest/build/ && make docs'
+                    sh 'cd /var/lib/jenkins/workspace/unittest/build/ && sudo make docs'
                     sh 'chmod -R 777 /var/lib/jenkins/workspace/*'                 
                 }
             }
