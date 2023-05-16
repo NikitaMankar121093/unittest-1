@@ -33,6 +33,7 @@ stages{
                     echo "Build started"
                     sh 'cd /var/lib/jenkins/workspace/unittest/build/ && sudo cmake .. && sudo make'
                     echo "Build ended"
+                }
                      post{
         always{
             mail to: "shreya.dhanbhar@bluebinaries.com, nikita.mankar@bluebinaries.com",
@@ -43,7 +44,6 @@ stages{
 
                 }
                  
-            }
 
         stage('Unit test')
             {
