@@ -87,7 +87,7 @@ stages{
                    // sh 'cd /var/lib/jenkins/workspace/unittest/docs/ && rm -rf Doxyfile'
                     //sh 'chmod -R 777 /var/lib/jenkins/workspace/unittest/*'
                     sh 'cd /var/lib/jenkins/workspace/unittest/build/ && make docs'
-                    //sh 'chmod -R 777 /var/lib/jenkins/workspace/unittest/*'                 
+                    sh 'chmod -R 777 /var/lib/jenkins/workspace/unittest/*'                 
                 }
             }
       }
