@@ -1,29 +1,8 @@
 pipeline
     {
         agent any
-stages{
-        stage('clean workspace')
-            {
-                steps  
-                {
-                    cleanWs()
-                    sh 'cd /var/lib/jenkins/workspace/*'
-                }
-            }
-        stage('Cloning')
-            {
-                steps
-                {  
-                    echo "Clone started"
-                    // Clone the repository using Git
-                    sh 'cd /var/lib/jenkins/workspace/ && git clone https://github.com/shredhanbhar/unittest.git'
-                    sh 'rm -rf /var/lib/jenkins/workspace/unittest/lib'
-                    sh 'mkdir /var/lib/jenkins/workspace/unittest/lib'
-                    sh 'cd /var/lib/jenkins/workspace/unittest/lib/ && git clone https://github.com/google/googletest.git'
-                    echo "Clone done"
-                }
-            }
 
+        stages {
         stage('Build code')
 
             {
@@ -31,6 +10,7 @@ stages{
                 {   
                     // Run the build command for your C/C++ project
                     echo "Build started"
+                    sh 'rm -rf /var/lib/jenkins/workspace/unittest/build/*'
                     sh 'cd /var/lib/jenkins/workspace/unittest/build/ && cmake .. && make'
                     echo "Build ended"
                 }
